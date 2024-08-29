@@ -3,6 +3,8 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import cv2
 import numpy as np
+import os
+
 
 class ThermalCameraApp:
     def __init__(self, root):
@@ -53,7 +55,7 @@ class ThermalCameraApp:
         self.captureFrame.grid(row=1, column=0, sticky="nsew")
 
         # Creando el botón de apagado con tamaño relativo
-        self.shutdownButton = tk.Button(self.shutdownFrame, text="OFF")
+        self.shutdownButton = tk.Button(self.shutdownFrame, text="OFF",command=self.shutdown_system)
         self.shutdownButton.place(relx=0, rely=0, relwidth=0.5, relheight=0.5)  # Botón ocupa 50% del ancho y 50% del alto del shutdownFrame
 
         # Creando los botones de captura de frames
@@ -147,6 +149,9 @@ class ThermalCameraApp:
         # Cambiar el mapa de colores basado en la selección del usuario
         self.color_map = selected_map
         print(f"Color map changed to: {self.color_map}")
+
+    def shutdown_system(self):
+       os.system("sudo shutdown now")
 
     def on_closing(self):
         # Liberar el recurso de la cámara
